@@ -1,11 +1,11 @@
 [package]
-name = "report-uia"
+name = "uia-report"
 version = "0.1.0"
 entrypoint = "lib.typ"
 authors = ["Sebastian Dalheim Knudsen"]
 license = "MIT"
 description = "Template for reports at the University of Agder"
-repository = "https://github.com/sebastos1/report-uia"
+repository = "https://github.com/sebastos1/uia-report"
 keywords = ["uia", "University of Agder", "Universitetet i Agder"]
 categories = ["report"]
 

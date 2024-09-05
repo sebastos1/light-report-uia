@@ -1,4 +1,4 @@
-#import "../lib.typ": *
+#import "@preview/uia-report:0.1.0": *
 
 // CHANGE THESE
 #show: report.with(
