@@ -1,4 +1,4 @@
-#import "@preview/uia-report:0.1.0": *
+#import "@preview/light-report-uia:0.1.0": *
 
 // CHANGE THESE
 #show: report.with(
