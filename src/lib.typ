@@ -1,64 +1,35 @@
 // This is just a latex copy of a LaTeX template. Originally made by these guys: Morten Goodwin Olsen, Andreas Prinz, Astrid Stifoss-Hanssen, Stein Bergsmark, Sigurd M. Assev, Christian Auby
 
 // english and norwegian support
-#let translations = (
-  en: (
-    contents: "Contents",
-    figure: "Figure",
-    table: "Table",
-    listing: "Listing",
-    list_of_figures: "Figures",
-    list_of_tables: "Tables",
-    list_of_listings: "Listings",
-    consisting_of: "consisting of",
-    and_: "and",
-    in_: "in",
-    faculty: "Faculty of Engineering and Science",
-    university: "University of Agder",
-    references: "References",
-  ),
-  no: (
-    contents: "Innhold",
-    figure: "Figur",
-    table: "Tabell",
-    listing: "Listing",
-    list_of_figures: "Figurer",
-    list_of_tables: "Tabeller",
-    list_of_listings: "Listinger",
-    consisting_of: "av",
-    and_: "og",
-    in_: "i",
-    faculty: "Fakultet for teknologi og realfag",
-    university: "Universitetet i Agder",
-    references: "Referanser",
-  )
-)
+#import "translations.typ": *
 
 #let report(
   title: none,
   authors: none,
-  group_name: none,
-  course_code: none,
-  course_name: none,
+  group-name: none,
+  course-code: none,
+  course-name: none,
   date: none,
   lang: "en",
   location: "Grimstad", // possibly different?
-  references: "references.yml", // in case user wants to use their own file
-  body 
+  references: none, // in case user wants to use their own file
+  body,
 ) = {
-  set document(title: [#title - #group_name], author: authors)
-  set text(font: "Linux Libertine", lang: lang)
+  set document(title: [#title - #group-name], author: authors)
+  set text(font: "New Computer Modern", lang: lang)
   set par(justify: true) // blocky paragraphs
   show link: underline
   show heading: set block(above: 18pt, below: 18pt)
 
-  
   if lang == "nb" or lang == "nn" {
     lang = "no"
   }
-  
-  assert(lang in translations.keys(), message: "Unsupported language code: " + lang + ". Supported codes are: " + translations.keys().join(", "))
-    
+
+  assert(
+    lang in translations.keys(),
+    message: "Unsupported language code: " + lang + ". Supported codes are: " + translations.keys().join(", "),
+  )
+
   let t = translations.at(lang)
 
   // to have language-specific figure namings (and correct targeted outlines)
@@ -76,23 +47,23 @@
 
   // FRONT PAGE
   set align(center)
-  block(height: 25%, image("media/UIA_" + lang + ".svg", height: 140%))
-  
+  block(height: 25%, image("/media/UIA_" + lang + ".svg", height: 140%))
+
   v(1cm)
   text(25pt, weight: "bold", title)
   v(3mm)
-  text(18pt, group_name) 
+  text(18pt, group-name)
   v(3mm)
-  text(12pt, t.consisting_of)
+  text(12pt, t.consisting-of)
   v(3mm)
-  text(18pt, format_authors(authors, t.and_))
+  text(18pt, format_authors(authors, t.and))
   v(3mm)
-  text(12pt, t.in_)
+  text(12pt, t.in)
   v(3mm)
   text(18pt)[
-    #course_code
+    #course-code
     #linebreak()
-    #course_name
+    #course-name
   ]
   v(1fr) // to bottom
   text(12pt)[
@@ -108,7 +79,7 @@
   // contents page
   set align(left)
   set heading(numbering: "1.")
-  outline(indent:auto, title: t.contents)
+  outline(indent: auto, title: t.contents)
 
   pagebreak()
 
@@ -116,27 +87,27 @@
   context {
     let has_type(type) = query(figure.where(kind: type)).len() > 0
     let show_this_page = false
-    
+
     if has_type(image) {
       show_this_page = true
-      [ #outline(title: t.list_of_figures, target: figure.where(kind: image)) ]
+      [ #outline(title: t.list-of-figures, target: figure.where(kind: image)) ]
     }
 
     if has_type(table) {
       show_this_page = true
-      [ #outline(title: t.list_of_tables, target: figure.where(kind: table)) ]
+      [ #outline(title: t.list-of-tables, target: figure.where(kind: table)) ]
     }
 
     if has_type(raw) {
       show_this_page = true
-      [ #outline(title: t.list_of_listings, target: figure.where(kind: raw)) ]
+      [ #outline(title: t.list-of-listings, target: figure.where(kind: raw)) ]
     }
-    
+
     if show_this_page {
       pagebreak()
     }
   }
-  
+
   // after the front page and content things
   set page(numbering: "1", number-align: center)
 
@@ -145,6 +116,8 @@
 
   pagebreak()
 
-  // https://github.com/typst/hayagriva/blob/main/docs/file-format.md
-  bibliography("template/" + references, title: t.references)
+  set bibliography(title: t.references)
+  if references != none {
+    references
+  }
 }

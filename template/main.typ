@@ -1,4 +1,4 @@
-#import "@preview/light-report-uia:0.1.0": *
+#import "@preview/light-report-uia:0.1.1": report
 
 // CHANGE THESE
 #show: report.with(
@@ -8,15 +8,16 @@
     "Lise Lisesen",
     "Knut Knutsen",
   ),
-  group_name: "Group 14",
-  course_code: "IKT123-G",
-  course_name: "Course name",
+  group-name: "Group 14",
+  course-code: "IKT123-G",
+  course-name: "Course name",
   date: "august 2024",
   lang: "en", // use "no" for norwegian
+  references: bibliography("references.yml"),
 )
 
 // neat code
-#import "@preview/codly:1.0.0": *
+#import "@preview/codly:1.3.0": *
 #show: codly-init.with()
 
 = Introduction
@@ -34,12 +35,10 @@ Here's a table:
     columns: (auto, auto),
     inset: 10pt,
     align: horizon,
-    table.header(
-      [*Letters*], [*Number*], 
-    ),
+    table.header([*Letters*], [*Number*]),
     [Five], [5],
     [Eight], [8],
-  ) 
+  ),
 )
 
 == Code blocks
@@ -52,10 +51,10 @@ Here's a rust code block:
       let greeting = format!("Hello, {}!", name);
       println!("{}", greeting);
   }
-  ```
+  ```,
 )
 
 == Math
 Here's some math:
-$ integral_0^infinity e^(-x^2) dif x = sqrt(pi)/2 $
+$ integral_0^infinity e^(-x^2) dif x = sqrt(pi) / 2 $
 And some more: $sigma / theta dot i$.

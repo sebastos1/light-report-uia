@@ -1,7 +1,7 @@
 [package]
 name = "light-report-uia"
-version = "0.1.0"
-entrypoint = "lib.typ"
+version = "0.1.1"
+entrypoint = "src/lib.typ"
 authors = ["Sebastian Dalheim Knudsen"]
 license = "MIT"
 description = "Template for reports at the University of Agder"

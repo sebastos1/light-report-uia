@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = { self, nixpkgs, flake-utils }:
@@ -11,8 +11,7 @@
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
-            typst
-            typst-lsp
+            tinymist
           ];
         };
       });
